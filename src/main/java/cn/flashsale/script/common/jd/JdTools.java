@@ -59,5 +59,12 @@ public class JdTools {
         SeleniumTools.implicitlyWait(driver, 5);
         WebElement loginQrcodeElement = driver.findElement(By.id("passport-main-qrcode-img"));
         return SeleniumTools.getLabelAttr(loginQrcodeElement, HtmlElement.Attr.SRC);
+    //    // 若未登录，则获取登录二维码，并保存到本地
+    //    if (!JdTools.isLogin(driver)) {
+    //        String qrcodeUrl = JdTools.getLoginQrcode(driver);
+    //        byte[] bytes = HttpUtil.downloadBytes(qrcodeUrl);
+    //        String outQrcodePath = "Z:\\qrcode-" + DateUtil.format(new Date(), "yyyyMMdd-HHmmss") + ".png";
+    //        FileUtil.writeBytes(bytes, new File(outQrcodePath));
+    //    }
     }
 }

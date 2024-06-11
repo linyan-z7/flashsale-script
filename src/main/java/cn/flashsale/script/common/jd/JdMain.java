@@ -31,7 +31,7 @@ public class JdMain {
         System.setProperty("webdriver.chrome.whitelistedIps", "");
         ChromeDriver driver = new ChromeDriver(SeleniumDrivesSettingOptions.getLocalWin10Options());
 
-        // 若未登录，则获取登录界面扫码截图
+        // 若未登录，则获取登录扫码界面的截图
         String screenshotPath = "";
         if (!JdTools.isLogin(driver)) {
             JdTools.toLoginQrcodePage(driver);
@@ -40,24 +40,18 @@ public class JdMain {
             Files.copy(screenshot.toPath(), Paths.get(screenshotPath));
         }
 
-        // 若未登录，则获取登录二维码，并保存到本地
-        /*if (!JdTools.isLogin(driver)) {
-            String qrcodeUrl = JdTools.getLoginQrcode(driver);
-            byte[] bytes = HttpUtil.downloadBytes(qrcodeUrl);
-            String outQrcodePath = "Z:\\qrcode-" + DateUtil.format(new Date(), "yyyyMMdd-HHmmss") + ".png";
-            FileUtil.writeBytes(bytes, new File(outQrcodePath));
-        }*/
-
         // 检测登录状态，120秒
         int i = 1;
         while (i <= 120) {
+            String now = DateUtil.now();
             if (JdTools.isLogin(driver)) {
+                System.out.println(now + "扫码登录成功！");
                 i = 999;
                 if (FileUtil.isFile(screenshotPath)) {
                     FileUtil.del(screenshotPath);
                 }
             } else {
-                System.err.println(DateUtil.now() + "未登录...");
+                System.err.println(now + "未登录...");
             }
             try {
                 Thread.sleep(1500);
@@ -67,14 +61,14 @@ public class JdMain {
         }
         if (i != 999) {
             System.err.println("您长时间未扫码，程序结束！");
+            driver.close();
         }
 
 
         /*ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         scheduler.scheduleAtFixedRate(() -> {
         }, 0, 1, TimeUnit.SECONDS);*/
-
-
+        System.out.println("ok!");
         driver.close();
     }
 
