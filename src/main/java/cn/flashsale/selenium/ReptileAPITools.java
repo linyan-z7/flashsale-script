@@ -1,4 +1,4 @@
-package cn.flashsale.script.common.selenium;
+package cn.flashsale.selenium;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;

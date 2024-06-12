@@ -1,4 +1,4 @@
-package cn.flashsale.script.common.utils;
+package cn.flashsale.common.utils;
 
 
 import com.google.zxing.BarcodeFormat;

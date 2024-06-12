@@ -1,4 +1,4 @@
-package cn.flashsale.script.common.selenium;
+package cn.flashsale.selenium;
 
 public class HtmlElement {
 

@@ -1,20 +1,15 @@
-package cn.flashsale.script.common.jd;
+package cn.flashsale.script.jd;
 
-import cn.flashsale.script.common.selenium.HtmlElement;
-import cn.flashsale.script.common.selenium.SeleniumTools;
+import cn.flashsale.selenium.HtmlElement;
+import cn.flashsale.selenium.SeleniumTools;
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.http.HttpUtil;
-import com.google.common.collect.Lists;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-import java.io.File;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -30,7 +25,8 @@ public class JdTools {
         int i = 0;
         for (Cookie cookie : cookies) {
             Date now = new Date();
-            if (("pin".equals(cookie.getName()) || "thor".equals(cookie.getName()) && DateUtil.compare(now, cookie.getExpiry()) < 0)) {
+            if ((JdProperties.Cookies.COOKIES_PIN.equals(cookie.getName()) || JdProperties.Cookies.COOKIES_THOR.equals(cookie.getName())
+                    && DateUtil.compare(now, cookie.getExpiry()) < 0)) {
                 i++;
             }
             if (i > 0) {
@@ -41,7 +37,7 @@ public class JdTools {
     }
 
     public static void toLoginQrcodePage(WebDriver driver) {
-        driver.get("https://passport.jd.com/new/login.aspx?ReturnUrl=https%3A%2F%2Fwww.jd.com%2F");
+        driver.get(JdProperties.PcUrl.LOGIN_REDIRECTION_INDEX.getValue());
         SeleniumTools.implicitlyWait(driver, 5);
         Actions actions = new Actions(driver);
         actions.click(driver.findElement(By.className("login-tab-l")));
@@ -51,7 +47,7 @@ public class JdTools {
 
     public static String getLoginQrcode(WebDriver driver) {
         // 获取登录二维码 // <p class="err-cont">二维码已失效</p>
-        driver.get("https://passport.jd.com/new/login.aspx?ReturnUrl=https%3A%2F%2Fwww.jd.com%2F");
+        driver.get(JdProperties.PcUrl.LOGIN_REDIRECTION_INDEX.getValue());
         SeleniumTools.implicitlyWait(driver, 5);
         Actions actions = new Actions(driver);
         actions.click(driver.findElement(By.className("login-tab-l")));

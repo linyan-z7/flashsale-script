@@ -1,4 +1,4 @@
-package cn.flashsale.script.common.selenium;
+package cn.flashsale.selenium;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

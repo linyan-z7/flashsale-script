@@ -1,4 +1,4 @@
-package cn.flashsale.script.common.exception;
+package cn.flashsale.selenium.exception;
 
 public class ReptileDataFormatException extends ReptileException {
 
