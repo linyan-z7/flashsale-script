@@ -34,16 +34,13 @@ public class JdMain {
 
         // 检测登录状态
         int i = 1;
-        int seconds = 60;
+        int seconds = 15;
         try {
             while (i <= seconds) {
                 String now = DateUtil.now();
                 if (JdTools.isLogin(driver)) {
                     System.out.println(now + "扫码登录成功！");
-                    i = 999;
-                    if (FileUtil.isFile(screenshotPath)) {
-                        FileUtil.del(screenshotPath);
-                    }
+                    i = seconds + 1;
                 } else {
                     System.err.println(now + "未登录...");
                 }
@@ -56,14 +53,14 @@ public class JdMain {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (i != 999) {
+            if (i != seconds + 1) {
                 System.err.println("您长时间未扫码，程序结束！");
-                driver.close();
             }
-            if (FileUtil.isFile(screenshotPath)) {
+            if (FileUtil.exist(screenshotPath) && FileUtil.isFile(screenshotPath)) {
                 FileUtil.del(screenshotPath);
             }
         }
+        driver.close();
     }
 
     /*public static void toLoginUrl(){
