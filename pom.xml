@@ -220,6 +220,20 @@
             <version>9.2.3</version>
         </dependency>
 
+        <!-- open-cv -->
+        <!-- 本地库 https://github.com/opencv/opencv/releases -->
+        <dependency>
+            <groupId>org.openpnp</groupId>
+            <artifactId>opencv</artifactId>
+            <version>4.9.0-0</version>
+        </dependency>
+
+        <!-- Tesseract-OCR -->
+        <dependency>
+            <groupId>net.sourceforge.tess4j</groupId>
+            <artifactId>tess4j</artifactId>
+            <version>5.11.0</version>
+        </dependency>
 
         <!--<dependency>
             <groupId>org.jsoup</groupId>
@@ -301,6 +315,14 @@
         </plugins>
 
         <resources>
+            <!-- dll打包 -->
+            <resource>
+                <directory>lib</directory>
+                <targetPath>/BOOT-INF/lib/</targetPath>
+                <includes>
+                    <include>**/*.dll</include>
+                </includes>
+            </resource>
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>false</filtering>

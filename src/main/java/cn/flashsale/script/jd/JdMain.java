@@ -1,8 +1,8 @@
 package cn.flashsale.script.jd;
 
 
-import cn.flashsale.selenium.SeleniumLocalProperties;
-import cn.flashsale.selenium.SeleniumDrivesSettingOptions;
+import cn.flashsale.core.selenium.SeleniumLocalProperties;
+import cn.flashsale.core.selenium.SeleniumDrivesSettingOptions;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import org.openqa.selenium.chrome.ChromeDriver;

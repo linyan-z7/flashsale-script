@@ -1,7 +1,7 @@
 package cn.flashsale.script.jd;
 
-import cn.flashsale.selenium.HtmlElement;
-import cn.flashsale.selenium.SeleniumTools;
+import cn.flashsale.core.selenium.HtmlElement;
+import cn.flashsale.core.selenium.SeleniumTools;
 import cn.hutool.core.date.DateUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;

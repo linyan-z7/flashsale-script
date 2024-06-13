@@ -1,29 +1,22 @@
 package cn.flashsale.script.damai;
 
+import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.StrUtil;
 import io.appium.java_client.AppiumBy;
-import io.appium.java_client.Location;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
-import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
-/**
- * description...
- *
- * @author linyan-z7
- * @date 2024/6/12
- */
 public class DamaiMain {
 
     public static void main(String[] args) throws Exception {
@@ -39,8 +32,7 @@ public class DamaiMain {
         UiAutomator2Options options = new UiAutomator2Options();
         options.setDeviceName("emulator-5554")
                 .setPlatformName("Android")
-                .setPlatformVersion("9")
-        ;
+                .setPlatformVersion("9");
 
         AndroidDriver driver = null;
         try {
@@ -53,11 +45,18 @@ public class DamaiMain {
 
         try {
             // 回到主页，点击指定应用
-            driver.pressKey(new KeyEvent(AndroidKey.HOME));
-            WebElement element = driver.findElement(By.xpath("//android.widget.TextView[@content-desc=\"雷电游戏中心\"]"));
-            element.click();
+            /*driver.pressKey(new KeyEvent(AndroidKey.HOME));
+            ThreadUtil.sleep(3, TimeUnit.SECONDS);*/
 
-            // 等待搜索框元素可见（最长等待时间为 5 秒），然后搜索应用
+            // 目标app是否已下载，若未下载则进入应用商店进行下载
+            String appName = "大麦";
+            WebElement targetAppElement = driver.findElement(By.xpath("//android.widget.TextView[@content-desc=\"" + appName + "\"]"));
+            if (targetAppElement == null) {
+                WebElement element = driver.findElement(By.xpath("//android.widget.TextView[@content-desc=\"系统应用\"]"));
+                element.click();
+            }
+
+            // 等待搜索框元素可见（最长等待时间为 5 秒），然后搜索目标应用
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
             WebElement search_layout = wait.until(ExpectedConditions.visibilityOfElementLocated(
                     AppiumBy.id("com.android.flysilkworm:id/search_layout")));
@@ -65,10 +64,10 @@ public class DamaiMain {
             WebElement base_search = wait.until(ExpectedConditions.elementToBeClickable(
                     AppiumBy.id("com.android.flysilkworm:id/base_search")));
             String text = base_search.getText();
-            if (StrUtil.isNotEmpty(text)){
+            if (StrUtil.isNotEmpty(text)) {
                 base_search.clear();
             }
-            base_search.sendKeys("王者荣耀");
+            base_search.sendKeys(appName);
             driver.pressKey(new KeyEvent(AndroidKey.ENTER));
 
 
